@@ -1,10 +1,14 @@
 """"""
+from vnpy.trader.database.database_retryquant_repository import RetryquantRepository
+
 from .database import BaseDatabaseManager, Driver
 
 
 def init(settings: dict) -> BaseDatabaseManager:
     driver = Driver(settings["driver"])
-    if driver is Driver.MONGODB:
+    if driver is Driver.RETRYQUANT:
+        return init_retryquant()
+    elif driver is Driver.MONGODB:
         return init_nosql(driver=driver, settings=settings)
     else:
         return init_sql(driver=driver, settings=settings)
@@ -22,3 +26,7 @@ def init_nosql(driver: Driver, settings: dict):
     from .database_mongo import init
     _database_manager = init(driver, settings=settings)
     return _database_manager
+
+
+def init_retryquant():
+    return RetryquantRepository()

@@ -13,6 +13,7 @@ class Driver(Enum):
     MYSQL = "mysql"
     POSTGRESQL = "postgresql"
     MONGODB = "mongodb"
+    RETRYQUANT = "retryquant"
 
 
 class BaseDatabaseManager(ABC):
